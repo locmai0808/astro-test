@@ -26,6 +26,21 @@ const { title } = Astro.props;
 			<a href="/tos">ToS</a> |
 			<a href="https://github.com/locmai0808/astro-test" target="_blank">GitHub Repo (External Link)</a>
 		</nav>
+		<div>History Length: <span id="history-length">0</span></div>
 		<slot />
+		<script>
+			function updateHistoryLength() {
+				const historyElement = document.getElementById('history-length');
+				if (historyElement) {
+					historyElement.textContent = history.length.toString();
+				}
+			}
+
+			// Update on initial load
+			updateHistoryLength();
+
+			// Update after each navigation
+			document.addEventListener('astro:page-load', updateHistoryLength);
+		</script>
 	</body>
 </html>
